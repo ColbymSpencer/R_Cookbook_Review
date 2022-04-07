@@ -1,0 +1,71 @@
+---
+title: "Chapter 8"
+author: "Colby S."
+date: "4/7/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+calculate the number of combinations of n items taken k at a time.
+```{r}
+# How many ways can we select 3 items from 5 items?
+# How many ways can we select 3 items from 50 items?
+# How many ways can we select 30 items from 50 items?
+
+# /hidden choose()
+```
+
+generate all combinations of n items taken k at a time.
+```{r}
+
+# 
+```
+
+generate random numbers
+```{r}
+
+```
+
+generate reproducible random numbers
+```{r}
+
+```
+
+sample a dataset randomly
+```{r}
+
+```
+
+generate a random sequence
+```{r}
+
+```
+
+generate a random permutation of a vector
+```{r}
+
+```
+
+calculate either the simple or the cumulative probability associated with a discrete random variable
+```{r}
+
+```
+
+calculate the distribution function (DF) or cumulative distribution function (CDF) for a continuous random variable
+```{r}
+
+```
+
+Given a probability p and a distribution, determine the corresponding quantile for p: the value x such that P(X ≤ x) = p.
+```{r}
+
+```
+
+plot the density function of a probability distribution
+```{r}
+
+```
+
