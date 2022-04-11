@@ -10,46 +10,165 @@ General Statistics
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
 ```
 
+get a  basic statistical summary of your data
 ```{r 9.1 Summarizing Your Data}
+# predict the output of the summary function to each of the variables then apply the summary function. Did the output surprise you? 
+# bonus: share a way to get more meaningful output
 
+## VECTOR
+vec <- rnorm(100, mean = 100, sd = 15)
+# summary(vec)
+
+## FACTOR
+factor_lvls <- factor(c("yes", "no", "maybe"), levels = c("yes", "no", "maybe"))
+fac <- sample(factor_lvls, size = 100, prob = c(0.6, 0.3, 0.1), replace = TRUE)
+# summary(fac)
+
+## CHARACTER VECTOR
+char <- c("What is returned when you summarise a character vector with one string")
+# summary(char)
+# length(char)
+char2 <- c("how", "about", "when", "there's", "two", "characters")
+# summary(char2)
+# bonus: how many characters (letters/spaces/punctuation/etc) are in the vector "char")
+nchar(char2)
+
+## MATRIX
+mat <- cbind(
+  rnorm(100, mean = 100, sd = 15),
+  rnorm(100, mean = 50, sd = 30),
+  rnorm(100, mean = 80, sd = 5)
+)
+# summary(mat)
+
+## DATAFRAME
+# Apply the summary function to df.
+df <- data.frame(
+  char, fac, vec
+)
+# summary(df)
+
+## LIST
+# apply the summary function to each element in list1
+list1 <- list(2, "hello", c(3,5,4), 1:5, list(FALSE, c("this", "is","a","list"),c(FALSE,TRUE,TRUE,TRUE,FALSE)))
+summary(list1)
+purrr::map(list1, summary)
 ```
 
+count the relative frequency of certain observations in your sample
 ```{r 9.2 Calculating Relative Frequencies}
+set.seed(120)
+df_effects <- data.frame(
+  before = rnorm(1000, 100, 20),
+  after = rnorm(1000, 120, 20),
+  label = sample(c("NJ", "FL"), 1000, prob = c(0.6, 0.4), replace = TRUE)
+)
+before <- as.vector(df_effects$before)
+after <- as.vector(df_effects$after)
+label <- as.vector(df_effects$label)
 
+time_series <- rlnorm(1000, 100, 20)
+# what fraction of labels are NJ
+ mean(label == "FL")
+# for what fraction of cases is before greater than after
+ mean(before > after)
+ # what fraction of before values exceed two standard deviations from the mean of before values
+ mean(before - mean(before) > 2*sd(before))
+ # fraction of time series values that are larger than the value taken immediately prior
+ mean(diff(time_series) > 0)
 ```
 
+tabulate one factor or build a contingency table from multiple factors
 ```{r 9.3 Tabulating Factors and Creating Contingency Tables}
+f1 <- factor(
+  sample(letters[1:5], size = 100, prob = c(17,17,22,20,24), replace = TRUE),
+  levels = c("a", "b", "c", "d", "e"))
 
+f2 <- factor(
+  sample(letters[6:8], size = 100, replace = TRUE),
+  levels = c("f", "g", "h"))
+
+# produce counts of factor f1
+table(f1)
+# produce a contingency table for f1 and f2
+table(f1, f2)
+# will the table function work with three factors?
+
+# also see xtabs
 ```
 
+test two categorical variables for independence using the chi-squared test
 ```{r 9.4 Testing Categorical Variables for Independence}
-
+set.seed(42)
+initial <- factor(sample(c("Yes", "No", "Maybe"), 100, replace = TRUE))
+outcome <- factor(sample(c("Pass", "Fail"), 100, replace = TRUE))
+summary(table(initial,outcome))
+# chisq.test() also does this 
 ```
 
-
+Given a fraction f, you want to know the corresponding quantile of your data.
 ```{r 9.5 Calculating Quantiles (and Quartiles) of a Dataset}
-
+# find the observation at the 95th quantile of var
+set.seed(42)
+var <- rnorm(100, mean = 100, sd = 20)
+quantile(vec, 0.95)
+# find the observations expected at each quartile (you should only call one command)
+quantile(vec)
+# which observation in vec delimits the lower 5% of the data
+quantile(vec, 0.05)
+# using only one command, return the observations at the 5th and 95th percentile of vec
+quantile(vec, c(0.5, 0.95))
+# what is the types argument and how many types are there?
 ```
 
+Given an observation x from your data, what is its corresponding quantile
 ```{r 9.6 Inverting a Quantile}
-
+# what quantile is a value of 100 in vector "vec"
+mean(vec<100)
 ```
 
+calculate the corresponding z-scores for all data elements
+AKA Normalize the data
 ```{r 9.7 Converting Data to Z-Scores}
-
+# what is a z score
+# convert the data to z scores in vec
+# normalize the data in vec
+scale(vec)
+# normalize a single y value relative to dataset x (review the formula for a z score)
+y <- mean(vec) - 13
+(y-mean(vec)) / sd(vec)
 ```
 
+Given a sample, you want to know if the mean of the population could reasonably be a particular value m
 ```{r 9.8 Sampling the Mean of a Sample (t-Test)}
+sample <- rnorm(75, mean = 100, sd = 15)
+m <- 95
 
+# does a t-test support the population mean of the sample to be 95
+t.test(sample, mu = m)
+# does a t-test support the population mean of the sample to be 100
+t.test(sample, mu = 100)
+# what is the default mu argument in the t.test() function
 ```
 
+Given a sample, you want to determine a confidence interval for the population’s mean.
 ```{r 9.9 Forming a Confidence Interval for a Mean}
-
+# give a 95% confidence interval for the means of the sample
+t.test(sample)
+# give a 99% confidence interval for the means of the sample
+t.test(sample, conf.level = .99)
 ```
 
+Given a data sample, what is the confidence interval for the median
 ```{r9.10 Forming a Confidence Interval for a Median}
+# find a 95% conficence interval for the median of sample
+wilcox.test(sample, conf.int = TRUE)
+# find a 99% confidence interval for the median of sample
+wilcox.test(sample, conf.int = 0.99)
+
 ```
 
 ```{r 9.11 Testing a Sample Proportion}
