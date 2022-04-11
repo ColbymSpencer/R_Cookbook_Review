@@ -1,0 +1,91 @@
+---
+title: "Chapter_9_Exercises"
+author: "Colby S."
+date: "4/8/2022"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+General Statistics
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r 9.1 Summarizing Your Data}
+
+```
+
+```{r 9.2 Calculating Relative Frequencies}
+
+```
+
+```{r 9.3 Tabulating Factors and Creating Contingency Tables}
+
+```
+
+```{r 9.4 Testing Categorical Variables for Independence}
+
+```
+
+
+```{r 9.5 Calculating Quantiles (and Quartiles) of a Dataset}
+
+```
+
+```{r 9.6 Inverting a Quantile}
+
+```
+
+```{r 9.7 Converting Data to Z-Scores}
+
+```
+
+```{r 9.8 Sampling the Mean of a Sample (t-Test)}
+
+```
+
+```{r 9.9 Forming a Confidence Interval for a Mean}
+
+```
+
+```{r9.10 Forming a Confidence Interval for a Median}
+```
+
+```{r 9.11 Testing a Sample Proportion}
+
+```
+
+```{r 9.12 Forming a Confidence Interval for a Proportion}
+
+```
+
+```{r 9.13 Testing for Normality}
+
+```
+
+```{r 9.14 Testing for Runs}
+
+```
+
+```{r 9.15 Comparing the Means of Two Samples}
+
+```
+
+```{r 9.16 Comparing the Locations of Two Samples Nonparametrically}
+
+```
+
+```{r 9.17 Testing a Correlation for Significance}
+
+```
+```{r 9.18 Testing Groups for Equal Proportions}
+
+```
+```{r 9.19 Performing Pairwise Comparisons Between Group Means}
+
+```
+```{r 9.20 Testing Two Samples for the Same Distribution}
+
+```
+
