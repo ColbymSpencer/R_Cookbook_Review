@@ -16,39 +16,53 @@ library(tidyverse)
 calculate the number of combinations of n items taken k at a time.
 ```{r 8.1 Counting the Number of Combinations}
 # How many ways can we select 3 items from 5 items?
-choose(5, 3)
-# How many ways can we select 3 items from 50 items?
-choose(50,3)
-# How many ways can we select 30 items from 50 items?
-choose(50,30)
+# 10
 
-# /hidden choose()
+# How many ways can we select 3 items from 50 items?
+# 19600
+
+# How many ways can we select 30 items from 50 items?
+# 4.712921e+13
 ```
 
 generate all combinations of n items taken k at a time.
 ```{r 8.2 Generating Combinations}
 # generate all combinations of the numbers 1 through 5 taken three at a time
-combn(1:5, 3)
+#      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+# [1,]    1    1    1    1    1    1    2    2    2     3
+# [2,]    2    2    2    3    3    4    3    3    4     4
+# [3,]    3    4    5    4    5    5    4    5    5     5
+
 # generate all combinations of five treatments (T1, T2, T3, T4, T5) taken three at a time
 treatments <- c("T1", "T2", "T3", "T4", "T5")
-combn(treatments, 3)
-# /hidden combn()
+#      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+# [1,] "T1" "T1" "T1" "T1" "T1" "T1" "T2" "T2" "T2" "T3" 
+# [2,] "T2" "T2" "T2" "T3" "T3" "T4" "T3" "T3" "T4" "T4" 
+# [3,] "T3" "T4" "T5" "T4" "T5" "T5" "T4" "T5" "T5" "T5" 
 ```
 
 generate random numbers
 ```{r 8.3 Generating random numbers}
 # generate a random uniform number between 0 and 1
+
 # generate 10 random uniform numbers between 0 and 1
+
 # generate one uniform variate between 1 and 10
+
 # generate one normal variate 
+
 # generate one binomial varaiate
+
 # one poisson variate
+
 # one exponential varaite
+
 # one gamma variate
+
 # generate three normal random values drawn from distributions with means of –10, 0, and +10 with sd of 1
+
 # calculate 30 draws of a normal variate whose mean is itself randomly distributed and with hyperparameters of μ = 0 and σ = 0.2
 
-# /hidden runif(), rnorm()
 ```
 
 generate reproducible random numbers
@@ -63,14 +77,13 @@ set.seed(100)
 runif(10)
 set.seed(100)
 runif(10)
-# /hidden set.seed()
 ```
 
 sample a dataset randomly
 ```{r 8.5 Generating a Random Sample}
 # take 50 samples(without replacement) of diamond prices from the diamonds dataset
-#   the diamonds dataset is loaded in the ggplot package
-sample(diamonds$price, 50, replace = F)
+  # the diamonds dataset is loaded in the ggplot package
+
 # take another 50 samples but include replacement
 # what does sample() do when size is not specified?
 
@@ -79,11 +92,13 @@ set.seed(42)
 x <- rnorm(1000, 4, 10)
 medians <- numeric(1000)   # empty vector of 1000 numbers
 # sample x 1000 times with replacement and store the median of each sample in the vaiable medians. Use a for loop to do this
+
 ```
 
 generate a random sequence
 ```{r Generating Random Sequences}
 # simulate the results of ten coin tosses
+sample(c(T,F), 10, replace = T)
 # stimulate the results of ten coin tosses of an unfair coin (heads!= 0.5, tails != 0.5)
 # what happens when the probabilities entered don't add up to one, how would r convert prob = c(10,20) for the coin flip example?
 # generate 10 binomial variates
@@ -93,55 +108,56 @@ generate a random sequence
 generate a random permutation of a vector
 ```{r 8.7 Randomly Permuting a Vector}
 # generate a random permutation of vector 1:10
+
 ```
 
 calculate either the simple or the cumulative probability associated with a discrete random variable
 ```{r 8.8 Calculating Probabilities for Discrete Distributions}
 # if the probability of success is 0.5, what is the probability of getting exactly seven success' in ten trials
-dbinom(7,10, prob = 0.5)
+# 0.117
 
 ## cumulative probability
 # what is the probability of having at least 7 success'
-pbinom(7, 10, prob  =0.5)
+# 0.945
 
 ## survival probability
 # What is the probability of having at most 7 success'
-pbinom(7,10, prob  =0.5, lower.tail = FALSE)
+# 0.0546
 
 ## interval probability
 # what is the probability of having more than 3 but no more than 7 success'
-pbinom(7, 10, 0.5) - pbinom(3, 10, 0.5)
-pbinom(c(3,7), 10, 0.5)
-diff(pbinom(c(3,7), 10, 0.5))
+# 0.773
 
-# /hidden d for distribution function
-# /hidden p for the cumulative probability function
 ```
 
 calculate the distribution function (DF) or cumulative distribution function (CDF) for a continuous random variable
 ```{r 8.9 Calculating Probabilites for Continuous Distributions}
 # what’s the probability of a draw being below .8 for a draw from a random standard normal distribution?
-pnorm(0.8)
-# calculate the probability that a man is shorter than 66 inches, assuming that men’s heights are normally distributed with a mean of 70 inches and a standard deviation of 3 inches
-pnorm(q = 66, mean = 70, sd = 3)
-#? calculate the probability that a man is TALLER than 66 inches, assuming that men’s heights are normally distributed with a mean of 70 inches and a standard deviation of 3 inches
-pnorm(q=66, mean = 70, sd = 3, lower.tail = FALSE)
-# calculate the probability that an exponential variable with a mean of 40 could be less than 20
-pexp(q= 20, rate = 1/40)
-# what is the probability that the same exponential variable could be greater than 50
-pexp(50, rate = 1/40, lower.tail = FALSE)
-# For the same exponential variable, what is P(20 < X < 50), the probability that it could fall between 20 and 50
-diff(pexp(c(20,50), rate = 1/40))
+# 0.788
 
-# /hidden pnorm, pexp
+# calculate the probability that a man is shorter than 66 inches, assuming that men’s heights are normally distributed with a mean of 70 inches and a standard deviation of 3 inches
+# 0.0912
+
+# calculate the probability that a man is TALLER than 66 inches, assuming that men’s heights are normally distributed with a mean of 70 inches and a standard deviation of 3 inches
+# 0.908
+
+# calculate the probability that an exponential variable with a mean of 40 could be less than 20
+# 0.393
+
+# what is the probability that the same exponential variable could be greater than 50
+
+# For the same exponential variable, what is P(20 < X < 50), the probability that it could fall between 20 and 50
+# 0.320
+
 ```
 
 Given a probability p and a distribution, determine the corresponding quantile for p: the value x such that P(X ≤ x) = p.
 ```{r 8.10 Converting Probabilites to Quantiles}
 # convert the 5th percentile of distribution X~N(100, 15) to a quantile
-qnorm(0.05, mean = 100, sd = 15)
+# 75.327
+
 # calculate the 95% confidence interval of a standard normal variable.
-cat("the 95% confidence interavl of a standard normal variable is from", qnorm(0.025), "to", qnorm(0.975))
+cat("the 95% confidence interavl of a standard normal variable is from", , "to", )
 ```
 
 plot the density function of a probability distribution
