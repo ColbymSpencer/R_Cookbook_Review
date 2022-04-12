@@ -70,7 +70,7 @@ before <- as.vector(df_effects$before)
 after <- as.vector(df_effects$after)
 label <- as.vector(df_effects$label)
 
-time_series <- rlnorm(1000, 100, 20)
+time_series <- rnorm(1000, 100, 20)
 # what fraction of labels are NJ
  mean(label == "FL")
 # for what fraction of cases is before greater than after
@@ -171,19 +171,51 @@ wilcox.test(sample, conf.int = 0.99)
 
 ```
 
+Given a sample of values from a population consisting of successes and failures, how can you test if the true proportion of successes is p
 ```{r 9.11 Testing a Sample Proportion}
+# what function would be used
 
+# what arguments does the function take
+
+# what does a small p value (typically p<0.05) indicate
+
+# A sports team won 11/20 games last season. How confident should you be that next season the team will win over half their games
 ```
 
+Given a sample of values from a population consisting of successes and failures. based on the sample data, create a confidence interval for the population's proportion of success
 ```{r 9.12 Forming a Confidence Interval for a Proportion}
-
+# The price of a good rose 6 times in the last 9 'market events'. Obtain a 99% confidence interval of the true proportion of times the good's price increases in a 'market event'.
+prop.test(x = 6, n =9, conf.level = .99)
 ```
 
+test if each data sample is from a normally distributed population
 ```{r 9.13 Testing for Normality}
+set.seed(100)
+sample1 <- sample(rnorm(100), 30)
+sample2 <- sample(rexp(100), 30)
 
+# what function can be used to test this
+# what arguments does it take
+# what is the output and how should it be interpreted
+
+shapiro.test(sample1)
+shapiro.test(sample2)
+
+# what is the package "nortest"
+# name two graphical tools used to assess normality
 ```
 
+given a sequence of binary values: yes/no, 0/1, true/false, or other two-valued data, evaluate if the sequence is random?
 ```{r 9.14 Testing for Runs}
+seq1 <- rep(c(TRUE, FALSE), 50)
+seq2 <- sample(seq1, 30, replace = TRUE)
+
+tseries::runs.test(as.factor(seq1))
+tseries::runs.test(as.factor(seq2))
+
+# what test can be used
+# what are the inputs
+# what is the output and how should it be interpreted
 
 ```
 
