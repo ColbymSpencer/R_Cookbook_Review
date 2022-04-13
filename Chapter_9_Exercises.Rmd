@@ -11,6 +11,8 @@ General Statistics
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+
+## Generate Sample Data
 ```
 
 get a  basic statistical summary of your data
@@ -219,24 +221,110 @@ tseries::runs.test(as.factor(seq2))
 
 ```
 
+Given one sample each from two populations, test if the two populations have the same mean
 ```{r 9.15 Comparing the Means of Two Samples}
+# what test can be used
+t.test()
 
+# what are the arguments of the test
+"x,y, alternative, paired"
+
+# what is the output and should it be interpreted
+"a small p value indicates that the means are from different samples"
+
+# what are the assumptions of the test
+"if either sample size is fewer than 20 data points, the populations must be normally distributed"
+
+"if the two populations have the same variance, specify var.equal  = TRUE to make the test less conservative"
+
+"Conservative basically means erring on the side of caution when testing, preferring inconclusive results to false results"
+
+# what test should be considered if the populations are not normally distributed and either sample is small
+"Wilcoxin-Mann_Whitney test"
 ```
 
+Given two samples from different populations with similar shapes, test if one population shifted to the left or right of the other
 ```{r 9.16 Comparing the Locations of Two Samples Nonparametrically}
+# what function can be used
+"wilcoxin-mann-whitney test"
+wilcox.test()
 
+# what are the arguments
+"x,y,paired"
+
+# what is the output and how should it be interpreted
+"small p value, the populations are likley shifted"
 ```
 
+Is the correlation between two given variables statistically significant
 ```{r 9.17 Testing a Correlation for Significance}
+# what function can be used, does this depend on the population distribution
+"pearsons correlation for normal
+spearman correlation for non-normal"
+cor.test()
+# what are the arguments
+"x,y,method"
+# what is the output and how should it be interpreted
+"small p-value, significant correlation
+it also gives the correlation"
 
 ```
+
+Given binary samples from two groups (Success/failure), do the groups have equal proportions of successes 
+?? WHAT IS THE DIFFEWRENCE BETWEEN GROUP AND POPULATION??
 ```{r 9.18 Testing Groups for Equal Proportions}
+# what function can be used
+"proportion test"
+prop.test()
 
+# what are the arguments
+"number of succeses, number of trials"
+
+# what is the output and how should it be interpreted
+"small p, proportions are significantly different"
+
+# The first teacher gave 14/38 students an A. The second teacher gave 10/40 students an A. Is the first teacher awarding significantly more A's than the second teacher. 
+successes <- c(14, 10)
+trials <- c(38,40)
+
+prop.test(successes, trials)
 ```
+Compare the means of multiple samples from different groups
 ```{r 9.19 Performing Pairwise Comparisons Between Group Means}
+# what function can be used
+"pairwise t test can be used"
+pairwise.t.test()
 
+# what are the arguments
+"data, factor to group by"
+
+# what is the output and how should it be interpreted
+"small p value, staticically different means"
+
+# compare mean values grouped by the indicator (grade level) from the df "comb" 
+freshmen <- rnorm(30, 80, 20)
+sophomores <- rnorm(30, 85, 20)
+juniors <- rnorm(30, 100, 20)
+
+comb <- stack(list(fresh = freshmen, soph = sophomores, jrs = juniors))
+
+pairwise.t.test(comb$values, comb$ind)
 ```
+
+Given two samples, test if they came from the same distribution
 ```{r 9.20 Testing Two Samples for the Same Distribution}
+# what function can be used
+"Kolmogorov-Smirnov test"
+ks
+
+# what are the arguments
+"the two samples"
+
+# what is the output and how should it be interpreted
+"small p value, different distributions"
+
+# what conditions must be met to use this test
+"normalcy not required"
 
 ```
 
